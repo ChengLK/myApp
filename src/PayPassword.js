@@ -88,6 +88,8 @@ export default class PayPassword extends Component {
                             maxLength={11}
                             keyboardType='numeric'
                             placeholder='请输入您的手机号'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobile.png')}
                                style={styles.content_input_img}/>
@@ -100,6 +102,8 @@ export default class PayPassword extends Component {
                             keyboardType='numeric'
                             maxLength={6}
                             placeholder='请输入手机验证码'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobliecode.png')}
                                style={styles.content_input_img}/>
@@ -188,9 +192,9 @@ const styles = StyleSheet.create({
         top: pTd(45),
         right: pTd(40),
         color: '#0f5187',
-        width: pTd(145),
+        width: pTd(150),
         textAlign: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: 'transparent'
     },
     content_input_code_view:{
         position: 'absolute',

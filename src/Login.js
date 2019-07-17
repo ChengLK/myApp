@@ -83,6 +83,8 @@ export default class Login extends Component {
                             maxLength={11}
                             keyboardType='numeric'
                             placeholder='请输入您的手机号'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobile.png')}
                                style={[styles.content_input_img, {width: pTd(50), height: pTd(50)}]}/>
@@ -95,6 +97,8 @@ export default class Login extends Component {
                             placeholder='请输入密码'
                             keyboardType='default'
                             password={true}
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}
                                style={[styles.content_input_img, {width: pTd(50), height: pTd(50)}]}/>

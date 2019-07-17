@@ -92,6 +92,8 @@ export default class Out extends Component {
                         onChangeText={(address) => this.setState({address})}
                         value={this.state.address}
                         placeholder='请输入收款地址'
+                        caretHidden={true}
+                        underlineColorAndroid='transparent'
                     />
                     <View style={{position: 'relative'}}>
                         <TextInput
@@ -108,6 +110,8 @@ export default class Out extends Component {
                             value={this.state.money}
                             keyboardType='numeric'
                             placeholder='请输入金额'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Text style={styles.content_input_unit}>{this.state.symbol}</Text>
                     </View>
@@ -119,6 +123,8 @@ export default class Out extends Component {
                         onChangeText={(remarks) => this.setState({remarks})}
                         value={this.state.remarks}
                         placeholder='备注'
+                        caretHidden={true}
+                        underlineColorAndroid='transparent'
                     />
                     <View style={styles.content_cost}>
                         <Text style={styles.content_tf}>交易费用</Text>

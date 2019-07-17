@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet, TouchableOpacity, Alert, TextInput} from 
 import {isIPhoneXPaddTop} from "../utils/iphonex"
 import pTd from '../utils/pxToDp'
 import RegisterSignPassword from './RegisterSignPassword';
+import Login from './Login';
 import Api from './network/api'
 
 export default class Register extends Component {
@@ -47,7 +48,6 @@ export default class Register extends Component {
         this.props.navigator.push({
             component: Login,
             name: '登录',
-            params: {}
         });
     }
     goRegisterSignPassword=()=>{
@@ -94,6 +94,8 @@ export default class Register extends Component {
                             value={this.state.phone}
                             maxLength={11}
                             keyboardType='numeric'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                             placeholder='请输入您的手机号'
                         />
                         <Image source={require('./static/mobile.png')}
@@ -107,6 +109,8 @@ export default class Register extends Component {
                             keyboardType='numeric'
                             maxLength={6}
                             placeholder='请输入手机验证码'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobliecode.png')}
                                style={styles.content_input_img}/>
@@ -143,9 +147,7 @@ export default class Register extends Component {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <TouchableOpacity onPress={this._setClipboardContent}>
-                            <Text style={styles.other_password_text}>注册账号代表您同意《服务协议》</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.other_password_text}>注册账号代表您同意《服务协议》</Text>
                     </View>
                 </View>
             </View>

@@ -115,6 +115,7 @@ export default class RegisterPayPassword extends Component {
                             maxLength={6}
                             autoFocus={true}
                             caretHidden={true}
+                            underlineColorAndroid='transparent'
                             keyboardType="numeric"
                             defaultValue={this.state.Msg}
                             onChangeText={

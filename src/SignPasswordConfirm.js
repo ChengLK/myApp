@@ -81,6 +81,8 @@ export default class SignPasswordConfirm extends Component {
                             password={true}
                             keyboardType='default'
                             placeholder='请输入登录密码'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}
                                style={styles.content_input_img}/>
@@ -97,6 +99,8 @@ export default class SignPasswordConfirm extends Component {
                             password={true}
                             keyboardType='default'
                             placeholder='请确认登录密码'
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}
                                style={styles.content_input_img}/>

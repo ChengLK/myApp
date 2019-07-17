@@ -110,9 +110,10 @@ export default class PayPasswordConfirm extends Component {
                             style={styles.textInputMsg}
                             maxLength={6}
                             autoFocus={true}
-                            caretHidden={true}
                             keyboardType="numeric"
                             defaultValue={this.state.Msg}
+                            caretHidden={true}
+                            underlineColorAndroid='transparent'
                             onChangeText={
                                 (text) => {
                                     this.setState({

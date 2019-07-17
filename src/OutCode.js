@@ -77,6 +77,8 @@ export default class OutCode extends Component {
                         keyboardType='numeric'
                         maxLength={6}
                         placeholder='请输入手机验证码'
+                        caretHidden={true}
+                        underlineColorAndroid='transparent'
                     />
                 </View>
                 <TouchableOpacity onPress={() => this.submit()}>
