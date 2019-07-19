@@ -142,11 +142,11 @@ export default class Detail extends Component {
                                 <TouchableOpacity onPress={()=>this._onForward(item)} key={item.id}>
                                     <View style={styles.list}>
                                         <View style={styles.list_left}>
-                                            <Text style={styles.list_left_title}>{item.transactionTypeEnums == 1 ? '转账' : '收款'}{item.transactionStatusEnums==0?'处理中':(item.transactionStatusEnums==1?'成功':'失败')}</Text>
+                                            <Text style={styles.list_left_title}>{item.transactionTypeEnums == 0 ? '转账' : '收款'}{item.transactionStatusEnums==0?'处理中':(item.transactionStatusEnums==1?'成功':'失败')}</Text>
                                             <Text style={styles.list_left_name}>{item.id}</Text>
                                         </View>
                                         <View style={styles.list_right}>
-                                            <Text style={styles.list_right_title}>{item.transactionTypeEnums == 1 ? `-${item.amont}` : `+${item.amont}`}</Text>
+                                            <Text style={styles.list_right_title}>{item.transactionTypeEnums == 0 ? `-${item.amont}` : `+${item.amont}`}</Text>
                                             <Text style={styles.list_right_day}>{this.functiontimetrans(item.transactionTime)}</Text>
                                         </View>
                                     </View>
