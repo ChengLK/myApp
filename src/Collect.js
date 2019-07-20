@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert, Clipboard,AsyncStorage } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TouchableHighlight, Alert, Clipboard,AsyncStorage } from 'react-native';
 import { isIPhoneXPaddTop } from "../utils/iphonex"
 import Api from './network/api'
 import pTd from '../utils/pxToDp'
@@ -34,30 +34,26 @@ export default class Collect extends Component {
             }
         });
     }
-    _setClipboardContent=()=>{
-        Clipboard.setString('12312312313');
+    _setClipboardContent=(add)=>{
+        Clipboard.setString(add);
         Alert.alert(
             '提示',
             '复制成功'
         )
     }
     componentDidMount(){
-        EasyLoading.show();
+        // EasyLoading.show();
         const { details={} } = this.props
         AsyncStorage.getItem('jwtToken',(err,result)=>{
             if(!err) {
                 Api.postGetAddress(result, {
                     currencyallId: details.currencyallId,
                 }).then((res)=>{
-                    console.log(res)
                     if(res.code==0){
-                        EasyLoading.dismiss();
-                        this.timer = setTimeout(
-                            () => {
-                                this.setState({
-                                    address: res.data.address
-                                })
-                            }, 500);
+                        // EasyLoading.dismiss();
+                        this.setState({
+                            address: res.data.address
+                        })
                     }else{
                         EasyLoading.show(res.msg,2000);
                     }
@@ -66,7 +62,6 @@ export default class Collect extends Component {
         })
     }
     render() {
-        console.log(this.props)
         const { details } = this.props
         return (
             <View style={styles.container}>
@@ -84,11 +79,11 @@ export default class Collect extends Component {
                             <Image source={{uri: details.currencyImages}} style={styles.banner_btn_head_img} />
                             <Image source={require('./static/code.png')} style={styles.banner_btn_code_img} />
                             <Text style={styles.banner_btn_code_text}>{this.state.address}</Text>
-                            <TouchableOpacity onPress={this._setClipboardContent} >
+                            <TouchableHighlight onPress={()=>this._setClipboardContent(this.state.address)} >
                                 <View style={styles.banner_btn_sub}>
                                     <Text style={styles.banner_btn_sub_text}>复制地址</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </TouchableHighlight>
                         </View>
                     </View>
                 </View>
@@ -166,19 +161,19 @@ const styles = StyleSheet.create({
     },
     banner_btn_code_text: {
         position:'absolute',
-        paddingLeft:pTd(10),
-        paddingRight:pTd(10),
+        paddingLeft:pTd(145),
+        paddingRight:pTd(145),
         top:pTd(560),
         left:pTd(0),
         width:pTd(650),
-        textAlign:'center',
+        textAlign:'left',
     },
     banner_btn_sub:{
         width:pTd(535),
         height:pTd(95),
         backgroundColor:'#0197f6',
         position:'absolute',
-        top:pTd(650),
+        top:pTd(655),
         left:pTd(57),
         borderRadius:pTd(15),
         display: 'flex',

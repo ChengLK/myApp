@@ -18,7 +18,6 @@ export default {
         });
     },
     postFindUser(data) {
-        console.log(data)
         return fetchAction(`${API_ADDRESS}/user/findUser`, {
             method: 'post',
             headers: {
@@ -40,7 +39,6 @@ export default {
         });
     },
     postGetTransactionList(jwtToken,data) {
-        console.log(jwtToken, data)
         return fetchAction(`${API_ADDRESS}/account/getTransactionList`, {
             method: 'post',
             headers: {
@@ -52,7 +50,6 @@ export default {
         });
     },
     postInsertPhoneUser(Cookie,data) {
-        console.log(Cookie, data)
         return fetchAction(`${API_ADDRESS}/user/insertPhoneUser`, {
             method: 'post',
             headers: {
@@ -64,7 +61,6 @@ export default {
         });
     },
     postGetWithdrawFee(jwtToken,data) {
-        console.log(jwtToken, data)
         return fetchAction(`${API_ADDRESS}/account/getWithdrawFee`, {
             method: 'post',
             headers: {
@@ -76,7 +72,6 @@ export default {
         });
     },
     postWithdrawSendSms(jwtToken,data) {
-        console.log(jwtToken, data)
         return fetchAction(`${API_ADDRESS}/account/withdrawSendSms`, {
             method: 'post',
             headers: {
@@ -88,7 +83,6 @@ export default {
         });
     },
     postWithdraw(jwtToken,Cookie, data) {
-        console.log(jwtToken, Cookie, data)
         return fetchAction(`${API_ADDRESS}/account/withdraw`, {
             method: 'post',
             headers: {
@@ -101,7 +95,6 @@ export default {
         });
     },
     postGetAddress(jwtToken,data) {
-        console.log(jwtToken, data)
         return fetchAction(`${API_ADDRESS}/account/getAddress`, {
             method: 'post',
             headers: {
@@ -113,7 +106,6 @@ export default {
         });
     },
     postForgetLogin(Cookie,data) {
-        console.log(Cookie, data)
         return fetchAction(`${API_ADDRESS}/user/forgetLogin`, {
             method: 'post',
             headers: {
@@ -125,7 +117,6 @@ export default {
         });
     },
     postForgetTransaction(Cookie,data) {
-        console.log(Cookie, data)
         return fetchAction(`${API_ADDRESS}/user/forgetTransaction`, {
             method: 'post',
             headers: {
@@ -137,7 +128,6 @@ export default {
         });
     },
     postLogout(jwtToken,data) {
-        console.log(jwtToken, data)
         return fetchAction(`${API_ADDRESS}/user/logout`, {
             method: 'post',
             headers: {

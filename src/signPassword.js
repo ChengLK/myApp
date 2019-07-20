@@ -25,7 +25,6 @@ export default class signPassword extends Component {
             return false
         }
         Api.postSendSms({phone: phone,smsType:2}).then((res)=>{
-            console.log(res)
             if(res.code==0){
                 this.setState({isCountdown: true,sessionId:res.data.sessionId})
                 this.codeTimer = setInterval(() => {
@@ -88,7 +87,6 @@ export default class signPassword extends Component {
                             maxLength={11}
                             keyboardType='numeric'
                             placeholder='请输入您的手机号'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobile.png')}
@@ -102,7 +100,6 @@ export default class signPassword extends Component {
                             keyboardType='numeric'
                             maxLength={6}
                             placeholder='请输入手机验证码'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobliecode.png')}

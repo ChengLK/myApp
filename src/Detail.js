@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Platform, AsyncStorage } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { isIPhoneXPaddTop } from "../utils/iphonex"
 import Api from './network/api'
 import pTd from '../utils/pxToDp'
@@ -7,7 +7,6 @@ import FirstPage from './FirstPage';
 import Transaction from './Transaction';
 import Out from './Out';
 import Collect from './Collect';
-import {EasyLoading, Loading} from "../utils/EasyLoading";
 export default class Detail extends Component {
     constructor(props){
         super(props);
@@ -54,8 +53,6 @@ export default class Detail extends Component {
         });
     }
     componentDidMount(){
-        EasyLoading.show();
-        console.log(this.props)
         const { details={} } = this.props
         const { currencyallId } = details
         AsyncStorage.getItem('jwtToken',(err,result)=>{
@@ -72,12 +69,10 @@ export default class Detail extends Component {
             page:0,
             size:99,
         }).then((res)=>{
-            console.log(res)
             if(res.code==0){
                 this.setState({
                   data: res.data.content
                 })
-                EasyLoading.dismiss();
             }else{
                 Alert.alert(res.msg)
             }
@@ -93,12 +88,17 @@ export default class Detail extends Component {
         var s =(date.getSeconds()<10 ? '0' + date.getSeconds(): date.getSeconds());   
         return Y+M+D+h+m+s;
     }
-
+    hashText=(hash)=>{
+        if(!hash){return}
+        let num = hash.length
+        let a = hash.substring(0,6)
+        let b = hash.substring(num-6,num)
+        return `${a}...${b}`
+    }
     render() {
         const { details={} } = this.props
         return (
             <View style={styles.container}>
-                <Loading />
                 <View style={styles.banner}>
                     <Image source={require('./static/homeBanner.png')} style={{width: pTd(750), height: pTd(500)}} >
                         <View style={styles.banner_nav} >
@@ -109,7 +109,7 @@ export default class Detail extends Component {
                         <Text style={styles.banner_title}>{details.currencySymbol}钱包</Text>
                         <View style={styles.banner_people}>
                             <Image source={{uri: details.currencyImages}} style={styles.banner_img} />
-                            <Text style={styles.banner_name}>{details.amont}{details.currencySymbol}</Text>
+                            <Text style={styles.banner_name}>{(details.amont).toFixed(5)} {details.currencySymbol}</Text>
                         </View>
                         <Text style={styles.banner_money}>= {details.currencyPrice * details.amont}CNY</Text>
                     </Image>
@@ -139,18 +139,18 @@ export default class Detail extends Component {
                     {
                         this.state.data.map((item,index)=>{
                             return(
-                                <TouchableOpacity onPress={()=>this._onForward(item)} key={item.id}>
+                                <TouchableHighlight onPress={()=>this._onForward(item)} key={item.id}>
                                     <View style={styles.list}>
                                         <View style={styles.list_left}>
                                             <Text style={styles.list_left_title}>{item.transactionTypeEnums == 0 ? '转账' : '收款'}{item.transactionStatusEnums==0?'处理中':(item.transactionStatusEnums==1?'成功':'失败')}</Text>
-                                            <Text style={styles.list_left_name}>{item.id}</Text>
+                                            <Text style={styles.list_left_name}>{this.hashText(item.hash)}</Text>
                                         </View>
                                         <View style={styles.list_right}>
-                                            <Text style={styles.list_right_title}>{item.transactionTypeEnums == 0 ? `-${item.amont}` : `+${item.amont}`}</Text>
+                                            <Text style={styles.list_right_title}>{item.transactionTypeEnums == 0 ? `-${(item.amont).toFixed(5)}` : `+${(item.amont).toFixed(5)}`}</Text>
                                             <Text style={styles.list_right_day}>{this.functiontimetrans(item.transactionTime)}</Text>
                                         </View>
                                     </View>
-                                </TouchableOpacity>
+                                </TouchableHighlight>
                             )
                         })
                     }
@@ -269,7 +269,6 @@ const styles = StyleSheet.create({
     },
     list_left_title:{
         fontSize: pTd(30),
-        fontWeight: 'bold',
         marginBottom: pTd(15),
         textAlign:'left'
     },
@@ -279,19 +278,18 @@ const styles = StyleSheet.create({
     },
     list_right:{
         display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
     },
     list_right_title:{
         fontSize: pTd(39),
-        fontWeight: 'bold',
         marginBottom: pTd(12),
         color:'#43acfd',
+        textAlign:'right'
     },
     list_right_day:{
         fontSize: pTd(24),
         fontWeight: 'bold',
         color: '#7d7d7d',
+        textAlign:'right'
     },
     bill:{
         marginLeft: pTd(40),

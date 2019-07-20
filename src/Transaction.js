@@ -39,8 +39,8 @@ export default class Transaction extends Component {
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.banner_title}>交易记录</Text>
-                        <Text style={styles.banner_money}>{details.transactionTypeEnums == 1 ? `-${details.amont}` : `+${details.amont}`}</Text>
-                        <Text style={styles.banner_day_name}>交易完成时间</Text>
+                        <Text style={styles.banner_money}>{details.transactionTypeEnums == 0 ? `-${details.amont}` : `+${details.amont}`}</Text>
+                        <Text style={styles.banner_day_name}>交易时间</Text>
                         <Text style={styles.banner_day_time}>{this.functiontimetrans(details.transactionTime)}</Text>
                     </Image>
                 </View>
@@ -55,7 +55,7 @@ export default class Transaction extends Component {
                                     <Text style={styles.list_title}>交易类型</Text>
                                 </View>
                                 <View style={styles.list_right}>
-                                    <Text style={styles.list_title}>{details.transactionTypeEnums == 1 ? '转账' : '收款'}</Text>
+                                    <Text style={styles.list_title}>{details.transactionTypeEnums == 0 ? '转账' : '收款'}</Text>
                                 </View>
                             </View>
                         </View>
@@ -77,23 +77,26 @@ export default class Transaction extends Component {
                         <View>
                             <View style={styles.list}>
                                 <View style={styles.list_left}>
-                                    <Text style={styles.list_title}>{details.remarks}</Text>
+                                    <Text style={styles.list_title}>{details.remarks?details.remarks:'无'}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
-                    <View>
-                        <View style={styles.bill}>
-                            <Text style={styles.bill_title}>发送地址</Text>
-                        </View>
+                    {
+                        details.sendAddress &&
                         <View>
-                            <View style={styles.list}>
-                                <View style={styles.list_left}>
-                                    <Text style={styles.list_title}>{details.sendAddress}</Text>
+                            <View style={styles.bill}>
+                                <Text style={styles.bill_title}>发送地址</Text>
+                            </View>
+                            <View>
+                                <View style={styles.list}>
+                                    <View style={styles.list_left}>
+                                        <Text style={styles.list_title}>{details.sendAddress}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                    </View>
+                    }
                     <View>
                         <View style={styles.bill}>
                             <Text style={styles.bill_title}>收款地址</Text>
@@ -106,6 +109,21 @@ export default class Transaction extends Component {
                             </View>
                         </View>
                     </View>
+                    {
+                        details.hash &&
+                        <View>
+                            <View style={styles.bill}>
+                                <Text style={styles.bill_title}>交易hash</Text>
+                            </View>
+                            <View>
+                                <View style={styles.list}>
+                                    <View style={styles.list_left}>
+                                        <Text style={styles.list_title}>{details.hash}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    }
                 </ScrollView>
             </View>
         )

@@ -43,7 +43,6 @@ export default class RegisterSignPassword extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -64,7 +63,6 @@ export default class RegisterSignPassword extends Component {
                             password={true}
                             keyboardType='default'
                             placeholder='请输入登录密码'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}
@@ -82,7 +80,6 @@ export default class RegisterSignPassword extends Component {
                             password={true}
                             keyboardType='default'
                             placeholder='请确认登录密码'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}

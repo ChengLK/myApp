@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, AsyncStorage, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity,TouchableHighlight, ScrollView, AsyncStorage, Alert } from 'react-native';
 import Detail from './Detail';
 import Account from './Account';
 import FirstPage from './FirstPage';
 import Api from './network/api'
 import { isIPhoneXPaddTop, isIPhoneXPaddBottom } from "../utils/iphonex"
-import {EasyLoading, Loading} from "../utils/EasyLoading";
 import pTd from '../utils/pxToDp'
+
 export default class Home extends Component {
     constructor(props){
         super(props);
@@ -20,7 +20,13 @@ export default class Home extends Component {
             component:Detail,
             name: '交易详情',
             params: {
-                details: item
+                details: {
+                    currencyallId:item.currencyallId,
+                    amont:item.amont,
+                    currencySymbol:item.currencySymbol,
+                    currencyImages:item.currencyImages,
+                    currencyPrice:item.currencyPrice
+                }
             }
         });
     }
@@ -39,20 +45,15 @@ export default class Home extends Component {
     componentDidMount(){
         AsyncStorage.getItem('jwtToken',(err,result)=>{
             if(result) {
-                EasyLoading.show();
                 this.getList(result)
             }else{
                 this._goLogin()
             }
         })
     }
-    componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
-    }
+
     getList=(jwtToken)=>{
         Api.postGetUserCurrency(jwtToken,{}).then((res)=>{
-            console.log(res)
-            EasyLoading.dismiss();
             if(res.code==0){
                 let money = 0
                 res.data.map((item,index)=>{
@@ -64,19 +65,13 @@ export default class Home extends Component {
                     money: money.toFixed(2)
                 })
             }else{
-                this.timer = setTimeout(
-                    () => {
-                        this._goLogin()
-                    },
-                    500
-                );
+                this._goLogin()
             }
         })
     }
     render() {
         return (
             <View style={styles.container}>
-                <Loading />
                 <View style={styles.banner}>
                     <Image source={require('./static/homeBanner.png')} style={{width: pTd(750), height: pTd(500)}} >
                         <Text style={styles.banner_title}>资产</Text>
@@ -94,8 +89,8 @@ export default class Home extends Component {
                                         <Text style={styles.list_left_title}>{item.currencySymbol}</Text>
                                     </View>
                                     <View style={styles.list_right}>
-                                        <Text style={styles.list_right_title}>{item.amont}</Text>
-                                        <Text>￥{item.currencyPrice}</Text>
+                                        <Text style={styles.list_right_title}>{(item.amont).toFixed(5)}</Text>
+                                        <Text style={styles.list_right_money}>≈￥{(item.currencyPrice * item.amont).toFixed(2)}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -104,21 +99,15 @@ export default class Home extends Component {
                 </ScrollView>
                 <View style={styles.tab}>
                     <View style={styles.tab_list}>
-                        <TouchableOpacity>
-                            <View style={styles.tab_list_each}>
-                                <Image source={require('./static/zichan.png')} style={{width: pTd(50), height: pTd(50)}} />
-                                <Text style={styles.tab_list_name}>资产</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <Image source={require('./static/zichan.png')} style={{width: pTd(50), height: pTd(50)}} />
+                        <Text style={styles.tab_list_name}>资产</Text>
                     </View>
-                    <View style={styles.tab_list}>
-                        <TouchableOpacity onPress={this._goAccount}>
-                            <View style={styles.tab_list_each}>
-                                <Image source={require('./static/zhanghu.png')} style={{width: pTd(50), height: pTd(50)}} />
-                                <Text style={styles.tab_list_name}>账户</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableHighlight onPress={this._goAccount}>
+                        <View style={styles.tab_list}>
+                            <Image source={require('./static/zhanghu.png')} style={{width: pTd(50), height: pTd(50)}} />
+                            <Text style={styles.tab_list_name}>账户</Text>
+                        </View>
+                    </TouchableHighlight>
                 </View>
             </View>
         )
@@ -166,16 +155,19 @@ const styles = StyleSheet.create({
     },
     list:{
         height:pTd(145),
-        width:pTd(750),
-        borderBottomWidth: pTd(2),
-        borderBottomColor: '#d8d8d8',
+        width:pTd(690),
+        marginLeft:pTd(30),
+        marginTop:pTd(20),
+        borderWidth: pTd(2),
+        borderColor: '#d8d8d8',
         display:'flex',
         flexDirection:'row',
         justifyContent: 'space-between',
         alignItems:'center',
         paddingLeft: pTd(35),
-        paddingRight: pTd(60),
+        paddingRight: pTd(35),
         backgroundColor: '#fff',
+        borderRadius:pTd(20),
     },
     list_left:{
         display:'flex',
@@ -185,45 +177,41 @@ const styles = StyleSheet.create({
     list_left_title:{
         fontSize: pTd(39),
         marginLeft: pTd(35),
-        fontWeight: 'bold'
     },
     list_right:{
         display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
     },
     list_right_title:{
         fontSize: pTd(39),
-        fontWeight: 'bold',
         marginBottom: pTd(15),
+        textAlign:'right',
+        color:'#7c8fd1'
     },
     list_right_money:{
         fontSize: pTd(24),
         fontWeight: 'bold',
         color: '#7d7d7d',
+        textAlign:'right'
     },
     tab:{
         marginBottom: isIPhoneXPaddBottom(0),
-        height:pTd(125),
         borderTopWidth: pTd(2),
-        borderTopColor: '#d8d8d8',
+        borderBottomWidth: pTd(2),
+        borderColor: '#d8d8d8',
         display:'flex',
         flexDirection:'row',
-        justifyContent: 'space-between',
-        alignItems:'center',
-        backgroundColor: '#fff',
     },
     tab_list:{
         width:pTd(375),
+        height:pTd(110),
+        display:'flex',
+        alignItems:'center',
+        paddingTop:pTd(15),
+        backgroundColor: '#fff',
     },
     tab_list_name:{
         textAlign:'center',
         fontSize:pTd(24),
         marginTop:pTd(10)
-    },
-    tab_list_each:{
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
     },
 });

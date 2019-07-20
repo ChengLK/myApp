@@ -28,7 +28,6 @@ export default class PayPasswordConfirm extends Component {
         });
     }
     onEnd= (text) => {
-        console.log(text)
         const{ index, Msgs, Msg} = this.state
         const{ phone, password, code, sessionId } = this.props
         if(index == 1){
@@ -48,7 +47,6 @@ export default class PayPasswordConfirm extends Component {
                 code:code,
                 trPassword:text
             }).then((res)=>{
-                console.log(res)
                 if(res.code==0){
                     Alert.alert(
                         '',
@@ -88,11 +86,8 @@ export default class PayPasswordConfirm extends Component {
 
     }
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
     }
     render() {
-        console.log(this.props)
-        const {isCountdown, codeCountdown} = this.state
         return (
             <View style={styles.container}>
                 <Loading />

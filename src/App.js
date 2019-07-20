@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import { TouchableHighlight, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components'
 import Home from './Home';
 export default class App extends Component {

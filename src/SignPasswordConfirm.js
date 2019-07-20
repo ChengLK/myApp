@@ -25,7 +25,6 @@ export default class SignPasswordConfirm extends Component {
         });
     }
     PasswordConfirm=()=>{
-        console.log(this.state)
         const { password, passwords }= this.state
         const{ phone, code, sessionId } = this.props
         if(password.length<8){
@@ -41,7 +40,6 @@ export default class SignPasswordConfirm extends Component {
             password: password,
             code: code,
         }).then((res)=>{
-            console.log(res)
             if(res.code==0){
                 Alert.alert(
                     '',
@@ -60,7 +58,6 @@ export default class SignPasswordConfirm extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -81,7 +78,6 @@ export default class SignPasswordConfirm extends Component {
                             password={true}
                             keyboardType='default'
                             placeholder='请输入登录密码'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}
@@ -99,7 +95,6 @@ export default class SignPasswordConfirm extends Component {
                             password={true}
                             keyboardType='default'
                             placeholder='请确认登录密码'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}

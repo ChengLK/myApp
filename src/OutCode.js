@@ -43,7 +43,6 @@ export default class OutCode extends Component {
                     amount: details.money,
                     remarks: details.remarks,
                 }).then((res)=>{
-                    console.log(res)
                     if(res.code==0){
                         EasyLoading.dismiss();
                         this.timer = setTimeout(
@@ -58,7 +57,6 @@ export default class OutCode extends Component {
         })
     }
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -77,7 +75,6 @@ export default class OutCode extends Component {
                         keyboardType='numeric'
                         maxLength={6}
                         placeholder='请输入手机验证码'
-                        caretHidden={true}
                         underlineColorAndroid='transparent'
                     />
                 </View>

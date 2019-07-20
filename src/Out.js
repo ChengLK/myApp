@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity, Alert, TextInput, AsyncStorage} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, TouchableHighlight, Alert, TextInput, AsyncStorage} from 'react-native';
 import {isIPhoneXPaddTop} from "../utils/iphonex"
 import Api from './network/api'
 import pTd from '../utils/pxToDp'
@@ -32,7 +32,6 @@ export default class Out extends Component {
         const { details={} } = this.props
         const { currencySymbol } =details
         Api.postGetWithdrawFee(jwtToken,{}).then((res)=>{
-            console.log(res)
             if(res.code==0){
                 res.data.map((item,index)=>{
                     if(currencySymbol == item.symbol){
@@ -53,7 +52,6 @@ export default class Out extends Component {
         })
     }
     submit=()=>{
-        console.log(12313)
         const { details={} } = this.props
         const { address, money, remarks } = this.state
         if(!address || !money){
@@ -75,7 +73,6 @@ export default class Out extends Component {
 
     }
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -92,14 +89,13 @@ export default class Out extends Component {
                         onChangeText={(address) => this.setState({address})}
                         value={this.state.address}
                         placeholder='请输入收款地址'
-                        caretHidden={true}
                         underlineColorAndroid='transparent'
                     />
                     <View style={{position: 'relative'}}>
                         <TextInput
                             style={styles.content_input}
                             onChangeText={(money) => {
-                                if(money<=this.props.details.currencyPrice){
+                                if(money<=(this.state.withdrawFee + this.props.details.amont)){
                                     return(
                                         this.setState({money})
                                     )
@@ -109,33 +105,31 @@ export default class Out extends Component {
                             }}
                             value={this.state.money}
                             keyboardType='numeric'
-                            placeholder='请输入金额'
-                            caretHidden={true}
+                            placeholder='请输入数量'
                             underlineColorAndroid='transparent'
                         />
                         <Text style={styles.content_input_unit}>{this.state.symbol}</Text>
                     </View>
                     <View>
-                        <Text style={styles.content_balance}>可用余额 {this.props.details.currencyPrice}</Text>
+                        <Text style={styles.content_balance}>可用数量 {this.props.details.amont} {this.state.symbol}</Text>
                     </View>
                     <TextInput
                         style={styles.content_input}
                         onChangeText={(remarks) => this.setState({remarks})}
                         value={this.state.remarks}
                         placeholder='备注'
-                        caretHidden={true}
                         underlineColorAndroid='transparent'
                     />
                     <View style={styles.content_cost}>
                         <Text style={styles.content_tf}>交易费用</Text>
-                        <Text style={[styles.content_tf,{color:'#0197f6'}]}>{this.state.withdrawFee}</Text>
+                        <Text style={[styles.content_tf,{color:'#0197f6'}]}>{this.state.withdrawFee} {this.state.symbol}</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.submit()}>
+                <TouchableHighlight onPress={() => this.submit()}>
                     <View style={styles.btn}>
                         <Text style={{fontSize: pTd(36), color: '#fff'}}>下一步</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableHighlight>
             </View>
         )
     }
@@ -208,6 +202,7 @@ const styles = StyleSheet.create({
         marginRight:pTd(10)
     },
     btn: {
+        position: 'absolute',
         marginLeft: pTd(30),
         borderWidth: pTd(2),
         borderColor: '#c3c3c3',

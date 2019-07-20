@@ -49,7 +49,6 @@ export default class Login extends Component {
             password: password,
             clientType: clientType,
         }).then((res)=>{
-            console.log(res)
             if(res.code==0){
                 AsyncStorage.setItem('jwtToken',res.data.jwtToken)
                 AsyncStorage.setItem('phone',res.data.phone)
@@ -83,7 +82,6 @@ export default class Login extends Component {
                             maxLength={11}
                             keyboardType='numeric'
                             placeholder='请输入您的手机号'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobile.png')}
@@ -97,7 +95,6 @@ export default class Login extends Component {
                             placeholder='请输入密码'
                             keyboardType='default'
                             password={true}
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/password.png')}

@@ -38,7 +38,6 @@ export default class OutPassword extends Component {
                 Api.postWithdrawSendSms(result,{
                     trPassword:text
                 }).then((res)=>{
-                    console.log(res)
                     if(res.code==0){
                         const sessionId = res.data.sessionId
                         EasyLoading.dismiss();
@@ -83,8 +82,6 @@ export default class OutPassword extends Component {
         this.timer && clearTimeout(this.timer);
     }
     render() {
-        console.log(this.props)
-        const {isCountdown, codeCountdown} = this.state
         return (
             <View style={styles.container}>
                 <Loading />
@@ -104,7 +101,6 @@ export default class OutPassword extends Component {
                             autoFocus={true}
                             keyboardType="numeric"
                             defaultValue={this.state.Msg}
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                             onChangeText={
                                 (text) => {

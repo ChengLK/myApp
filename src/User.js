@@ -30,7 +30,6 @@ export default class User extends Component {
         AsyncStorage.getItem('jwtToken',(err,result)=>{
             if(!err) {
                 Api.postLogout(result,{}).then((res)=>{
-                    console.log(res)
                     if(res.code==0){
                         Alert.alert(
                             '',
@@ -55,7 +54,6 @@ export default class User extends Component {
             }
         })
         AsyncStorage.getItem('registerTime',(err,result)=>{
-            console.log(result)
             if(!err){
                 this.setState({
                     registerTime: result
@@ -99,7 +97,7 @@ export default class User extends Component {
                     '确定退出登录？',
                     '',
                     [
-                        {text: '取消', onPress: () => console.log('OK Pressed!') },
+                        {text: '取消', onPress: () => {} },
                         {text: '确定', onPress: () => this.logout()},
                     ]
                 )}>

@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TouchableHighlight, ScrollView, AsyncStorage } from 'react-native';
 import User from './User';
 import Home from './Home';
 import Password from './Password';
@@ -98,21 +98,15 @@ export default class Account extends Component {
                     </View>
                 </View>
                 <View style={styles.tab}>
+                    <TouchableHighlight onPress={this._goHome}>
+                        <View style={styles.tab_list}>
+                            <Image source={require('./static/zichan.png')} style={{width: pTd(50), height: pTd(50)}} />
+                            <Text style={styles.tab_list_name}>资产</Text>
+                        </View>
+                    </TouchableHighlight>
                     <View style={styles.tab_list}>
-                        <TouchableOpacity onPress={this._goHome}>
-                            <View style={styles.tab_list_each}>
-                                <Image source={require('./static/zichan.png')} style={{width: pTd(50), height: pTd(50)}} />
-                                <Text style={styles.tab_list_name}>资产</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.tab_list}>
-                        <TouchableOpacity>
-                            <View style={styles.tab_list_each}>
-                                <Image source={require('./static/zhanghu.png')} style={{width: pTd(50), height: pTd(50)}} />
-                                <Text style={styles.tab_list_name}>账户</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <Image source={require('./static/zhanghu.png')} style={{width: pTd(50), height: pTd(50)}} />
+                        <Text style={styles.tab_list_name}>账户</Text>
                     </View>
                 </View>
             </View>
@@ -198,24 +192,33 @@ const styles = StyleSheet.create({
         marginBottom: isIPhoneXPaddBottom(0),
         height:pTd(125),
         borderTopWidth: pTd(2),
-        borderTopColor: '#d8d8d8',
-        backgroundColor: '#fff',
+        borderBottomWidth: pTd(2),
+        borderColor: '#d8d8d8',
         display:'flex',
         flexDirection:'row',
         justifyContent: 'space-between',
         alignItems:'center',
+        backgroundColor: '#fff',
+    },
+    tab:{
+        marginBottom: isIPhoneXPaddBottom(0),
+        borderTopWidth: pTd(2),
+        borderBottomWidth: pTd(2),
+        borderColor: '#d8d8d8',
+        display:'flex',
+        flexDirection:'row',
     },
     tab_list:{
         width:pTd(375),
+        height:pTd(110),
+        display:'flex',
+        alignItems:'center',
+        paddingTop:pTd(15),
+        backgroundColor: '#fff',
     },
     tab_list_name:{
         textAlign:'center',
         fontSize:pTd(24),
         marginTop:pTd(10)
-    },
-    tab_list_each:{
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
     },
 });

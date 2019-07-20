@@ -26,7 +26,6 @@ export default class Register extends Component {
             return false
         }
         Api.postSendSms({phone: phone,smsType:1}).then((res)=>{
-            console.log(res)
             if(res.code==0){
                 this.setState({isCountdown: true,sessionId:res.data.sessionId})
                 this.codeTimer = setInterval(() => {
@@ -94,7 +93,6 @@ export default class Register extends Component {
                             value={this.state.phone}
                             maxLength={11}
                             keyboardType='numeric'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                             placeholder='请输入您的手机号'
                         />
@@ -109,7 +107,6 @@ export default class Register extends Component {
                             keyboardType='numeric'
                             maxLength={6}
                             placeholder='请输入手机验证码'
-                            caretHidden={true}
                             underlineColorAndroid='transparent'
                         />
                         <Image source={require('./static/mobliecode.png')}
