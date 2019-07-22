@@ -3,7 +3,11 @@ import { Navigator } from 'react-native-deprecated-custom-components'
 import Home from './Home';
 export default class App extends Component {
     configureScene(route) {
-        return Navigator.SceneConfigs.FadeAndroid
+        if(route.type == 'noLeft'){
+            return Navigator.SceneConfigs.FadeAndroid
+        }else{
+            return Navigator.SceneConfigs.PushFromRight
+        }
     }
     render() {
         return (

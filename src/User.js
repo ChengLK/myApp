@@ -20,6 +20,7 @@ export default class User extends Component {
         AsyncStorage.setItem('registerTime','')
         this.props.navigator.push({
             component: FirstPage,
+            type:'noLeft',
             name: '退出',
         });
     }

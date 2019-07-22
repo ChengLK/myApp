@@ -33,12 +33,14 @@ export default class Home extends Component {
     _goAccount=()=>{
         this.props.navigator.push({
             component:Account,
+            type:'noLeft',
             name: '账户',
         });
     }
     _goLogin=()=>{
         this.props.navigator.push({
             component:FirstPage,
+            type:'noLeft',
             name: '登录',
         });
     }
@@ -82,7 +84,7 @@ export default class Home extends Component {
                 <ScrollView style={{flex: 1}}>
                     {
                         this.state.data.map((item,index)=>(
-                            <TouchableOpacity onPress={()=>this._onForward(item)} key={item.id}>
+                            <TouchableOpacity onPress={()=>this._onForward(item)} key={item.currencyallId}>
                                 <View style={styles.list}>
                                     <View style={styles.list_left}>
                                         <Image source={{uri: item.currencyImages}} style={{width: pTd(75), height: pTd(75),borderRadius:pTd(38)}} />

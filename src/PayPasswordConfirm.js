@@ -23,6 +23,7 @@ export default class PayPasswordConfirm extends Component {
     _goIndex = () => {
         this.props.navigator.push({
             component: Home,
+            type:'noLeft',
             name: '首页',
             params: {}
         });

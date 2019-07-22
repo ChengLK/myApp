@@ -88,7 +88,7 @@ export default class Collect extends Component {
                     </View>
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.content_text}>任何非ETH资产充入此地址将不可找回</Text>
+                    <Text style={styles.content_text}>任何非{details.currencySymbol}资产充入此地址将不可找回</Text>
                 </View>
             </View>
         )

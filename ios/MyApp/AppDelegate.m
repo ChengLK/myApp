@@ -30,6 +30,9 @@
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
+  
+  [NSThread sleepForTimeInterval:2.0];//设置启动页面时间
+  
   [self.window makeKeyAndVisible];
   return YES;
 }

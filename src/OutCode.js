@@ -24,6 +24,7 @@ export default class OutCode extends Component {
     _goLogin=()=>{
         this.props.navigator.push({
             component:Home,
+            type:'noLeft',
             name: '首页',
         });
     }

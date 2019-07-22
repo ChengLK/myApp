@@ -14,7 +14,6 @@ export class EasyLoading {
      * @param timeout Loading显示时间，为-1时会一只显示，需要手动关闭
      */
     static show(text = '加载中...', timeout = defaultTimeOut) {
-        console.log(timeout);
         lo.setState({"isShow": true, "text": text, "timeout": timeout});
     }
 

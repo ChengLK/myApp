@@ -19,6 +19,7 @@ export default class Login extends Component {
     _goRegister=()=>{
         this.props.navigator.push({
             component: Register,
+            type:'noLeft',
             name: '注册',
             params: {}
         });
@@ -26,13 +27,15 @@ export default class Login extends Component {
     goback = () => {
         this.props.navigator.push({
             component: FirstPage,
-            name: '注册',
+            type:'noLeft',
+            name: '首页',
             params: {}
         });
     }
     _goIndex = () => {
         this.props.navigator.push({
             component: Home,
+            type:'noLeft',
             name: '首页',
             params: {}
         });

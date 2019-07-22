@@ -32,7 +32,6 @@ export default class OutPassword extends Component {
     }
     onEnd= (text) => {
         EasyLoading.show();
-
         AsyncStorage.getItem('jwtToken',(err,result)=>{
             if(!err) {
                 Api.postWithdrawSendSms(result,{
@@ -101,6 +100,7 @@ export default class OutPassword extends Component {
                             autoFocus={true}
                             keyboardType="numeric"
                             defaultValue={this.state.Msg}
+                            caretHidden={true}
                             underlineColorAndroid='transparent'
                             onChangeText={
                                 (text) => {

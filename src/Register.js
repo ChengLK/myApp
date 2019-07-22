@@ -5,7 +5,7 @@ import pTd from '../utils/pxToDp'
 import RegisterSignPassword from './RegisterSignPassword';
 import Login from './Login';
 import Api from './network/api'
-
+import FirstPage from './FirstPage';
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +17,12 @@ export default class Register extends Component {
         }
     }
     goback = () => {
-        this.props.navigator.pop();
+        this.props.navigator.push({
+            component: FirstPage,
+            type:'noLeft',
+            name: '首页',
+            params: {}
+        });
     }
     _handleGetCode = () => {
         const { phone } = this.state
@@ -46,6 +51,7 @@ export default class Register extends Component {
     _goLogin=()=>{
         this.props.navigator.push({
             component: Login,
+            type:'noLeft',
             name: '登录',
         });
     }

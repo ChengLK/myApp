@@ -111,7 +111,7 @@ export default class Detail extends Component {
                             <Image source={{uri: details.currencyImages}} style={styles.banner_img} />
                             <Text style={styles.banner_name}>{(details.amont).toFixed(5)} {details.currencySymbol}</Text>
                         </View>
-                        <Text style={styles.banner_money}>= {details.currencyPrice * details.amont}CNY</Text>
+                        <Text style={styles.banner_money}>= {(details.currencyPrice * details.amont).toFixed(2)}CNY</Text>
                     </Image>
                     <View style={styles.banner_btn}>
                         <View style={styles.banner_btn_list}>
@@ -135,26 +135,35 @@ export default class Detail extends Component {
                 <View style={styles.bill}>
                     <Text style={styles.bill_title}>交易记录</Text>
                 </View>
-                <ScrollView style={{flex: 1}}>
-                    {
-                        this.state.data.map((item,index)=>{
-                            return(
-                                <TouchableHighlight onPress={()=>this._onForward(item)} key={item.id}>
-                                    <View style={styles.list}>
-                                        <View style={styles.list_left}>
-                                            <Text style={styles.list_left_title}>{item.transactionTypeEnums == 0 ? '转账' : '收款'}{item.transactionStatusEnums==0?'处理中':(item.transactionStatusEnums==1?'成功':'失败')}</Text>
-                                            <Text style={styles.list_left_name}>{this.hashText(item.hash)}</Text>
+                {
+                    this.state.data.length>0 &&
+                    <ScrollView style={{flex: 1,borderTopWidth:pTd(2),borderTopColor:'#f3f3f3'}}>
+                        {
+                            this.state.data.map((item,index)=>{
+                                return(
+                                    <TouchableHighlight onPress={()=>this._onForward(item)} key={item.id}>
+                                        <View style={styles.list}>
+                                            <View style={styles.list_left}>
+                                                <Text style={styles.list_left_title}>{item.transactionTypeEnums == 0 ? '转账' : '收款'}{item.transactionStatusEnums==0?'处理中':(item.transactionStatusEnums==1?'成功':'失败')}</Text>
+                                                <Text style={styles.list_left_name}>{this.hashText(item.hash)}</Text>
+                                            </View>
+                                            <View style={styles.list_right}>
+                                                <Text style={[styles.list_right_title, {color:item.transactionTypeEnums == 0?'#c44c67':'#43acfd'}]}>{item.transactionTypeEnums == 0 ? `-${(item.amont).toFixed(5)}` : `+${(item.amont).toFixed(5)}`}</Text>
+                                                <Text style={styles.list_right_day}>{this.functiontimetrans(item.transactionTime)}</Text>
+                                            </View>
                                         </View>
-                                        <View style={styles.list_right}>
-                                            <Text style={styles.list_right_title}>{item.transactionTypeEnums == 0 ? `-${(item.amont).toFixed(5)}` : `+${(item.amont).toFixed(5)}`}</Text>
-                                            <Text style={styles.list_right_day}>{this.functiontimetrans(item.transactionTime)}</Text>
-                                        </View>
-                                    </View>
-                                </TouchableHighlight>
-                            )
-                        })
-                    }
-                </ScrollView>
+                                    </TouchableHighlight>
+                                )
+                            })
+                        }
+                    </ScrollView>
+                }
+                {
+                    this.state.data.length==0 &&
+                        <View style={styles.tupian}>
+                            <Image source={require('./static/wujiaoyi.png')} style={{width:pTd(300),height:pTd(352),marginRight:pTd(15)}} />
+                        </View>
+                }
             </View>
         )
     }
@@ -254,14 +263,14 @@ const styles = StyleSheet.create({
         height:pTd(120),
         width:pTd(750),
         borderBottomWidth: pTd(2),
-        borderBottomColor: '#d8d8d8',
+        borderBottomColor: '#f3f3f3',
         display:'flex',
         flexDirection:'row',
         justifyContent: 'space-between',
         alignItems:'center',
         paddingLeft: pTd(35),
         paddingRight: pTd(60),
-        backgroundColor: '#eff0f4',
+        backgroundColor: '#fff',
     },
     list_left:{
         display:'flex',
@@ -270,7 +279,7 @@ const styles = StyleSheet.create({
     list_left_title:{
         fontSize: pTd(30),
         marginBottom: pTd(15),
-        textAlign:'left'
+        textAlign:'left',
     },
     list_left_name:{
         fontSize: pTd(24),
@@ -282,7 +291,6 @@ const styles = StyleSheet.create({
     list_right_title:{
         fontSize: pTd(39),
         marginBottom: pTd(12),
-        color:'#43acfd',
         textAlign:'right'
     },
     list_right_day:{
@@ -300,4 +308,12 @@ const styles = StyleSheet.create({
         color: '#43acfd',
         fontSize: pTd(30),
     },
+    tupian:{
+        flex: 1,
+        display:'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        borderTopWidth: pTd(2),
+        borderTopColor: '#f3f3f3',
+    }
 });

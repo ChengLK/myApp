@@ -23,6 +23,7 @@ export default class RegisterPayPassword extends Component {
     _goIndex = () => {
         this.props.navigator.push({
             component: Home,
+            type:'noLeft',
             name: '首页',
             params: {}
         });
@@ -109,6 +110,7 @@ export default class RegisterPayPassword extends Component {
                             autoFocus={true}
                             underlineColorAndroid='transparent'
                             keyboardType="numeric"
+                            caretHidden={true}
                             defaultValue={this.state.Msg}
                             onChangeText={
                                 (text) => {

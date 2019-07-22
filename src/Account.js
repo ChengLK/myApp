@@ -33,6 +33,7 @@ export default class Account extends Component {
     _goHome=()=>{
         this.props.navigator.push({
             component:Home,
+            type:'noLeft',
             name: '首页',
         });
     }
