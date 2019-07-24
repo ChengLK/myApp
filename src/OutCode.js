@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity, Alert, TextInput, AsyncStorage} from 'react-native';
 import {isIPhoneXPaddTop} from "../utils/iphonex"
-import {EasyLoading, Loading} from "../utils/EasyLoading";
 import Api from './network/api'
 import pTd from '../utils/pxToDp'
 import Home from './Home';
@@ -45,13 +44,15 @@ export default class OutCode extends Component {
                     remarks: details.remarks,
                 }).then((res)=>{
                     if(res.code==0){
-                        EasyLoading.dismiss();
-                        this.timer = setTimeout(
-                            () => {
-                                this._goLogin()
-                            }, 500);
+                        Alert.alert(
+                            '',
+                            '转账成功',
+                            [
+                                {text: 'OK', onPress: () => this._goLogin()},
+                            ]
+                        )
                     }else{
-                        EasyLoading.show(res.msg,2000);
+                        Alert.alert(res.msg)
                     }
                 })
             }
